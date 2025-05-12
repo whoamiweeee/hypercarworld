@@ -214,11 +214,12 @@
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
         <a href="#login">Login</a>
+        <a href="#donate">Donate</a> <!-- Added Donate link -->
     </nav>
 </header>
 
 <div class="ticker">
-    <p>This website is still under development, feel free to contact @knohps on discord for any bugs.</p>
+    <p>🔥 Limited Editions Available Now! Only for True Speed Enthusiasts 🔥</p>
 </div>
 
 <div class="hero">
@@ -263,6 +264,16 @@
         <button onclick="vote('Chiron')">Vote Chiron</button>
         <button onclick="vote('P1')">Vote P1</button>
     </div>
+</section>
+
+<section id="donate" class="section">
+    <h2>💰 Donate Crypto</h2>
+    <p style="text-align:center;">Support our work with a Bitcoin donation! Use the address below:</p>
+    <div style="text-align:center; margin-top:20px;">
+        <input type="text" id="btcAddress" value="bc1pj9fgedj2wtl9ksnwedq56jl03y3pdfwa7teaxtg4vu0p5jh835qq68kp7d" readonly style="width: 80%; padding: 10px; font-size: 1.2em;">
+        <button onclick="copyBTCAddress()">Copy Address</button>
+    </div>
+    <p id="copyStatus" style="text-align:center; font-size: 1.2em; color: #0f0; margin-top: 10px;"></p>
 </section>
 
 <section id="about" class="section">
@@ -347,6 +358,16 @@
             ul.style.transform = "scale(1)";
             ul.style.color = "#fff";
         }, 500);
+    }
+
+    // Crypto Donation: Copy BTC Address
+    function copyBTCAddress() {
+        const addressField = document.getElementById("btcAddress");
+        addressField.select();
+        addressField.setSelectionRange(0, 99999); // For mobile devices
+        document.execCommand("copy");
+        document.getElementById("copyStatus").innerText = "Bitcoin address copied to clipboard!";
+        setTimeout(() => document.getElementById("copyStatus").innerText = "", 2000);
     }
 
     window.addEventListener('scroll', () => {
