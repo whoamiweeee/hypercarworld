@@ -1,381 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HyperCarWorld.xyz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            background-color: #111;
-            color: #fff;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-        header {
-            background-color: #000;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.8);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            animation: slideDown 1s ease;
-        }
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        header h1 {
-            margin: 0;
-            color: #e50914;
-            font-size: 2.5em;
-            letter-spacing: 2px;
-        }
-        nav {
-            margin-top: 10px;
-        }
-        nav a {
-            margin: 0 10px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1em;
-            transition: color 0.3s, text-shadow 0.3s;
-        }
-        nav a:hover {
-            color: #e50914;
-            text-shadow: 0 0 10px #e50914;
-        }
-        .ticker {
-            background-color: #e50914;
-            color: #fff;
-            padding: 10px 0;
-            overflow: hidden;
-            white-space: nowrap;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.8);
-        }
-        .ticker p {
-            display: inline-block;
-            padding-left: 100%;
-            animation: scroll 15s linear infinite;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-        .hero {
-            background: url('https://images.unsplash.com/photo-1571601039444-d4173486b9aa?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
-            height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            background-attachment: fixed;
-            animation: fadeIn 2s ease;
-        }
-        .hero h2 {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 2em;
-            animation: flame 1s infinite alternate;
-        }
-        @keyframes flame {
-            from { text-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500; }
-            to { text-shadow: 0 0 20px #ff6347, 0 0 30px #ff6347; }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .section {
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .section h2 {
-            text-align: center;
-            color: #e50914;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease;
-        }
-        .cars {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .car {
-            background-color: #222;
-            border-radius: 10px;
-            overflow: hidden;
-            width: 300px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.7);
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-        .car:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #e50914;
-        }
-        .car img {
-            width: 100%;
-            display: block;
-        }
-        .car h3 {
-            margin: 10px;
-            color: #e50914;
-        }
-        .car p {
-            margin: 0 10px 10px;
-        }
-        footer {
-            background-color: #000;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            color: #777;
-            font-size: 0.9em;
-        }
-        .top-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #e50914;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.2em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.6);
-            display: none;
-            z-index: 1000;
-            transition: background 0.3s;
-        }
-        .top-btn:hover {
-            background: #ff1a1a;
-        }
-        button {
-            background: linear-gradient(45deg, #e50914, #ff1a1a);
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-            margin: 5px;
-            box-shadow: 0 0 10px #e50914;
-        }
-        button:hover {
-            background: #ff1a1a;
-            transform: scale(1.1);
-            box-shadow: 0 0 20px #ff1a1a;
-        }
-        @media (max-width: 768px) {
-            .hero {
-                height: 50vh;
-            }
-            .hero h2 {
-                font-size: 1.5em;
-            }
-            nav a {
-                display: inline-block;
-                margin: 5px;
-                font-size: 0.9em;
-            }
-            .car {
-                width: 90%;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hypercar World with Live Chat</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+  body {
+    background-color: #0d0d0d;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .navbar {
+    background-color: #111;
+  }
+  .hero {
+    background: url('https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+    background-size: cover;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 2px 2px 8px #000;
+  }
+  @media (min-width: 768px) {
+    .hero h1 {
+      font-size: 4rem;
+    }
+  }
+  .feature-card {
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+    transition: 0.3s;
+  }
+  .feature-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 30px rgba(255,255,255,0.2);
+  }
+  footer {
+    background-color: #111;
+    padding: 40px 0;
+    color: #aaa;
+  }
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e60000;
+    display: inline-block;
+  }
+  #live-chat {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 320px;
+    max-width: 90vw;
+    background: #222;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 0 10px #000;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+  }
+  #live-chat-header {
+    padding: 10px;
+    background: #e60000;
+    cursor: pointer;
+    user-select: none;
+  }
+  #live-chat-messages {
+    height: 250px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #111;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .message {
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 80%;
+    word-wrap: break-word;
+  }
+  .message.user {
+    background: #e60000;
+    color: white;
+    align-self: flex-end;
+  }
+  .message.admin {
+    background: #444;
+    color: white;
+    align-self: flex-start;
+  }
+  #live-chat-input {
+    display: flex;
+    border-top: 1px solid #444;
+  }
+  #live-chat-input input {
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    background: #333;
+    color: white;
+  }
+  #live-chat-input button {
+    background: #e60000;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Hypercar World</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<header>
-    <h1>HyperCarWorld.xyz</h1>
-    <nav>
-        <a href="#models">Models</a>
-        <a href="#quiz">Quiz</a>
-        <a href="#leaderboard">Leaderboard</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="#login">Login</a>
-        <a href="#donate">Donate</a> <!-- Added Donate link -->
-    </nav>
-</header>
+<section class="hero text-center">
+  <div class="container">
+    <h1>Welcome to the World of Hypercars</h1>
+  </div>
+</section>
 
-<div class="ticker">
-    <p>🔥 Limited Editions Available Now! Only for True Speed Enthusiasts 🔥</p>
-</div>
-
-<div class="hero">
-    <h2>Unleash the Beast. Dominate the Streets. 🔥</h2>
-</div>
-
-<section id="models" class="section">
-    <h2>Featured Hypercars</h2>
-    <div class="cars">
-        <div class="car">
-            <img src="https://images.unsplash.com/photo-1606813902917-099950b850c8?auto=format&fit=crop&w=800&q=80" alt="Ferrari LaFerrari">
-            <h3>Ferrari LaFerrari</h3>
-            <p>Top Speed: 217 mph<br>0-60 mph: 2.6 sec</p>
+<section id="features" class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center">Massive Features</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card p-4 text-center">
+          <i class="fas fa-gauge-high fa-3x mb-3 text-danger"></i>
+          <h3>Performance Stats</h3>
+          <p>Compare 0-60 times, top speeds, and horsepower of every hypercar model.</p>
         </div>
-        <div class="car">
-            <img src="https://images.unsplash.com/photo-1617811402663-bd2403d9dc4a?auto=format&fit=crop&w=800&q=80" alt="Bugatti Chiron">
-            <h3>Bugatti Chiron</h3>
-            <p>Top Speed: 261 mph<br>0-60 mph: 2.4 sec</p>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card p-4 text-center">
+          <i class="fas fa-car-side fa-3x mb-3 text-danger"></i>
+          <h3>3D Car Viewer</h3>
+          <p>View hypercars from every angle in a full 3D interactive viewer (coming soon).</p>
         </div>
-        <div class="car">
-            <img src="https://images.unsplash.com/photo-1638430420485-98b1bbbd2f0c?auto=format&fit=crop&w=800&q=80" alt="McLaren P1">
-            <h3>McLaren P1</h3>
-            <p>Top Speed: 217 mph<br>0-60 mph: 2.7 sec</p>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card p-4 text-center">
+          <i class="fas fa-fire-flame-curved fa-3x mb-3 text-danger"></i>
+          <h3>Launch Sound Gallery</h3>
+          <p>Listen to raw exhaust notes from the rarest hypercars on the planet.</p>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<section id="quiz" class="section">
-    <h2>🏎️ Find Your Hypercar Match!</h2>
-    <p style="text-align:center;">Click below to take the quiz and see which car matches your vibe!</p>
-    <div style="text-align:center; margin-top:20px;">
-        <button onclick="takeQuiz()">Take the Quiz</button>
-        <p id="quizResult" style="margin-top:20px; font-size:1.5em; color:#0f0; transition: transform 0.5s;"></p>
+<section id="gallery" class="py-5 bg-dark">
+  <div class="container">
+    <h2 class="section-title text-center">Gallery</h2>
+    <div class="row g-3">
+      <div class="col-sm-6 col-md-4">
+        <img src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Car 1" />
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Car 2" />
+      </div>
+      <div class="col-sm-6 col-md-4">
+        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded" alt="Car 3" />
+      </div>
     </div>
+  </div>
 </section>
 
-<section id="leaderboard" class="section">
-    <h2>🏆 Hypercar Leaderboard</h2>
-    <ul id="votes" style="list-style:none; padding:0; text-align:center; font-size:1.2em;"></ul>
-    <div style="text-align:center; margin-top:20px;">
-        <button onclick="vote('LaFerrari')">Vote LaFerrari</button>
-        <button onclick="vote('Chiron')">Vote Chiron</button>
-        <button onclick="vote('P1')">Vote P1</button>
+<section id="blog" class="py-5">
+  <div class="container">
+    <h2 class="section-title text-center">Latest News</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="feature-card p-3">
+          <h4>Koenigsegg Jesko Sets New Top Speed Record</h4>
+          <p>Breaking 300mph again, the Jesko reigns supreme in the hypercar arena...</p>
+          <a href="#" class="text-danger">Read more</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-card p-3">
+          <h4>Ferrari SF90 XX: Track Beast Unleashed</h4>
+          <p>Ferrari drops the hammer with its most track-focused hybrid monster to date...</p>
+          <a href="#" class="text-danger">Read more</a>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<section id="donate" class="section">
-    <h2>💰 Donate Crypto</h2>
-    <p style="text-align:center;">Support our work with a Bitcoin donation! Use the address below:</p>
-    <div style="text-align:center; margin-top:20px;">
-        <input type="text" id="btcAddress" value="bc1pj9fgedj2wtl9ksnwedq56jl03y3pdfwa7teaxtg4vu0p5jh835qq68kp7d" readonly style="width: 80%; padding: 10px; font-size: 1.2em;">
-        <button onclick="copyBTCAddress()">Copy Address</button>
-    </div>
-    <p id="copyStatus" style="text-align:center; font-size: 1.2em; color: #0f0; margin-top: 10px;"></p>
+<section id="contact" class="py-5 bg-dark">
+  <div class="container">
+    <h2 class="section-title text-center">Contact Us</h2>
+    <form>
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Your name" />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="your@email.com" />
+      </div>
+      <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" id="message" rows="4"></textarea>
+      </div>
+      <button type="submit" class="btn btn-danger">Send Message</button>
+    </form>
+  </div>
 </section>
 
-<section id="about" class="section">
-    <h2>About Us</h2>
-    <p style="text-align:center; max-width: 800px; margin: auto;">At HyperCarWorld.xyz, we fuel the dreams of speed enthusiasts worldwide. Our mission is to bring you closer to the world’s most powerful machines, from the streets of Monaco to the racetracks of Nürburgring. Join us where engineering meets adrenaline and passion drives perfection.</p>
-</section>
-
-<section id="contact" class="section">
-    <h2>Contact Us</h2>
-    <p style="text-align:center;">Email: hypercarteam@gmail.com<br>Phone: +1 234 567 8900<br>Discord: @knohps</p>
-</section>
-
-<section id="login" class="section">
-    <h2>Login</h2>
-    <div style="text-align:center; max-width:400px; margin:auto;">
-        <input type="text" id="username" placeholder="Username" style="padding:10px; width: 100%; margin-bottom: 10px;">
-        <input type="password" id="password" placeholder="Password" style="padding:10px; width: 100%; margin-bottom: 10px;">
-        <button onclick="login()">Login</button>
-        <p id="loginError" style="color: red; font-size: 1.2em;"></p>
-    </div>
-</section>
-
-<footer>
-    &copy; 2025 HyperCarWorld.xyz. All Rights Reserved.
+<footer class="text-center">
+  <div class="container">
+    <p>&copy; 2025 Hypercar World. All rights reserved.</p>
+  </div>
 </footer>
 
-<button class="top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️</button>
+<!-- Live Chat Widget -->
+<div id="live-chat">
+  <div id="live-chat-header">Live Chat &#x25BC;</div>
+  <div id="live-chat-messages"></div>
+  <div id="live-chat-input">
+    <input type="text" id="chat-input" placeholder="Type your message..." />
+    <button id="send-btn">Send</button>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <script>
-    // Admin Login
-    function login() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        if (username === "admin" && password === "admin") {
-            document.getElementById('loginError').innerText = "Login successful! Admin features unlocked.";
-            document.getElementById('login').innerHTML = "<h3>Admin Area</h3><p>Welcome Admin! 🚀</p>";
-        } else {
-            document.getElementById('loginError').innerText = "Invalid login credentials. Please try again.";
-        }
+  // Your Firebase config here — replace with your own Firebase project config!
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  const db = firebase.database();
+  const chatRef = db.ref('liveChatMessages');
+
+  const chatMessages = document.getElementById('live-chat-messages');
+  const chatInput = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('send-btn');
+  const chatHeader = document.getElementById('live-chat-header');
+  let chatOpen = true;
+
+  // Toggle chat window
+  chatHeader.onclick = () => {
+    chatOpen = !chatOpen;
+    if(chatOpen) {
+      document.getElementById('live-chat').style.height = '400px';
+      chatMessages.style.display = 'flex';
+      document.getElementById('live-chat-input').style.display = 'flex';
+      chatHeader.innerHTML = 'Live Chat &#x25BC;';
+    } else {
+      document.getElementById('live-chat').style.height = '40px';
+      chatMessages.style.display = 'none';
+      document.getElementById('live-chat-input').style.display = 'none';
+      chatHeader.innerHTML = 'Live Chat &#x25B2;';
     }
+  };
 
-    // Quiz Logic with Animation
-    function takeQuiz() {
-        const cars = ["Ferrari LaFerrari 🐎", "Bugatti Chiron 🐞", "McLaren P1 🏁"];
-        const random = cars[Math.floor(Math.random() * cars.length)];
-        const result = document.getElementById("quizResult");
-        result.innerText = `Your match is: ${random}`;
-        result.style.transform = "scale(1.5)";
-        setTimeout(() => result.style.transform = "scale(1)", 500);
-    }
+  // Display messages from Firebase
+  chatRef.limitToLast(50).on('child_added', (snapshot) => {
+    const msg = snapshot.val();
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('message');
+    msgDiv.classList.add(msg.sender === 'user' ? 'user' : 'admin');
+    msgDiv.textContent = msg.text;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  });
 
-    // Leaderboard Voting
-    let votes = JSON.parse(localStorage.getItem('votes')) || { LaFerrari: 0, Chiron: 0, P1: 0 };
-    let voted = localStorage.getItem('voted') || null;
-
-    function vote(car) {
-        if (voted) {
-            alert('You already voted for ' + voted + '! Thanks!');
-            return;
-        }
-        votes[car]++;
-        voted = car;
-        localStorage.setItem('votes', JSON.stringify(votes));
-        localStorage.setItem('voted', car);
-        renderVotes();
-        animateVotes();
-    }
-
-    function renderVotes() {
-        document.getElementById("votes").innerHTML = `
-            <li>LaFerrari: ${votes.LaFerrari} votes</li>
-            <li>Chiron: ${votes.Chiron} votes</li>
-            <li>P1: ${votes.P1} votes</li>
-        `;
-    }
-
-    function animateVotes() {
-        const ul = document.getElementById('votes');
-        ul.style.transform = "scale(1.2)";
-        ul.style.color = "#0f0";
-        setTimeout(() => {
-            ul.style.transform = "scale(1)";
-            ul.style.color = "#fff";
-        }, 500);
-    }
-
-    // Crypto Donation: Copy BTC Address
-    function copyBTCAddress() {
-        const addressField = document.getElementById("btcAddress");
-        addressField.select();
-        addressField.setSelectionRange(0, 99999); // For mobile devices
-        document.execCommand("copy");
-        document.getElementById("copyStatus").innerText = "Bitcoin address copied to clipboard!";
-        setTimeout(() => document.getElementById("copyStatus").innerText = "", 2000);
-    }
-
-    window.addEventListener('scroll', () => {
-        document.querySelector('.top-btn').style.display = window.scrollY > 300 ? 'block' : 'none';
+  // Send new message
+  sendBtn.onclick = () => {
+    const text = chatInput.value.trim();
+    if(!text) return;
+    chatRef.push({
+      text,
+      sender: 'user',
+      timestamp: Date.now()
     });
+    chatInput.value = '';
+  };
 
-    renderVotes();
+  // Send message on enter key
+  chatInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') {
+      sendBtn.click();
+    }
+  });
 </script>
-
 </body>
 </html>
